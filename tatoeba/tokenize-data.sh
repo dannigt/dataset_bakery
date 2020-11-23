@@ -22,7 +22,7 @@ spm_train \
 rm $PREPRO_DIR/learn_bpe_input.tmp
 
 ##### apply BPE #####
-echo '*** Will spawn' $(ls $DATA_DIR/data/*eng*/train.src | wc -l) 'processes for X-en training sets'
+echo '*** Will spawn' $(ls $DATA_DIR/data/*eng*/train.src | wc -l)*2 'processes for X-en training sets'
 
 # apply BPE on X-en training sets
 for ext in src trg; do
@@ -39,11 +39,10 @@ for ext in src trg; do
                         --output_format=piece \
                         --vocabulary_threshold=50 < $f > $PREPRO_DIR/train/$lan_pair.$ext &
         done
-        wait
 done
 
 # apply BPE on all dev and test sets
-echo '*** Will spawn' $(ls $DATA_DIR/data/*/dev.src | wc -l) 'processes for X-en dev sets'
+echo '*** Will spawn' $(ls $DATA_DIR/data/*/dev.src | wc -l) 'processes for all dev sets'
 echo '*** Will spawn' $(ls $DATA_DIR/data/*/test.src | wc -l) 'processes for all test sets'
 mkdir $PREPRO_DIR/$set -p
 
@@ -67,20 +66,3 @@ for set in dev test; do
         done
         wait
 done
-
-exit
-for ext in src trg; do
-
-	for f in `ls -S $DATA_DIR/data/*/test\.$ext`; do
-
-		lan_pair=`echo $f | rev | cut -d/ -f2 | rev`
-
-		echo '*** Applying BPE to' $f 
-                spm_encode \
-			--model=$PREPRO_DIR/sentencepiece.bpe.model \
-                        --output_format=piece \
-                        --vocabulary_threshold=50 < $f > $PREPRO_DIR/$set/$lan_pair.$ext &
-        done
-	wait
-done
-
