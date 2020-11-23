@@ -6,7 +6,7 @@ BIN_DATA_DIR=$BASE_DIR/data/bpe_${BPESIZE}_bin
 mkdir $BIN_DATA_DIR -p
 
 SHARED_DICT=$BIN_DATA_DIR/dict.txt
-if false;then
+
 # combine all sentences to create a joint vocab
 for f in $PREPRO_DIR/train/*; do
 	cat $f >> $PREPRO_DIR/train/tmp.src
@@ -24,7 +24,7 @@ fairseq-preprocess \
   --workers $NUM_WORKER
 
 rm $PREPRO_DIR/train/tmp.src $PREPRO_DIR/train/tmp.trg
-fi
+
 # point to shared dictionary for reusing later
 # use the same shared dictionary for all language pairs
 ln -s $BIN_DATA_DIR/dict.src.txt $SHARED_DICT
