@@ -2,13 +2,13 @@
 
 source ./config_35_lang.sh
 
-for source_lang in $LANS; do
+for source_lang in $LANS eng; do
 
-	for target_lang in $LANS; do
+	for target_lang in $LANS eng; do
 
 		if [[ ! "$source_lang" == "$target_lang" ]]; then
-			echo $source_lang $target_lang 
-			
+			echo '*** Translating from' $source_lang 'to' $target_lang 
+		
 			CUDA_VISIBLE_DEVICES=$GPU fairseq-generate $BIN_DATA_DIR \
 				--path $model \
 				--task translation_multi_simple_epoch \
