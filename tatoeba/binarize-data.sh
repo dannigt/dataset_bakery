@@ -72,6 +72,7 @@ for f in $PREPRO_DIR/train/*eng*\.{src,trg}; do
                 --srcdict $SHARED_DICT \
                 --tgtdict $SHARED_DICT \
                 --workers $NUM_WORKER
+	wait
 done
 
 # binarize dev set
@@ -113,6 +114,7 @@ for f in $PREPRO_DIR/dev/*\.{src,trg}; do
                 --srcdict $SHARED_DICT \
                 --tgtdict $SHARED_DICT \
                 --workers $NUM_WORKER
+	wait
 done
 
 # binarize test set
@@ -158,5 +160,6 @@ for f in $PREPRO_DIR/test/*\.{src,trg}; do
                 --srcdict $SHARED_DICT \
                 --tgtdict $SHARED_DICT \
                 --workers $NUM_WORKER
+		wait
 	fi
 done
