@@ -1,6 +1,6 @@
 export BPESIZE=64000
-export BIN_DATA_DIR=/home/dliu/data/lrt/tatoeba/data/bpe_${BPESIZE}_bin
-export OUT_DIR=/home/dliu/data/lrt/tatoeba/data/
+export BIN_DATA_DIR=./data/bpe_${BPESIZE}_bin  # directory containing binarized files
+export OUT_DIR=/home./data/ # output directory
 
 export GPU=0
 
